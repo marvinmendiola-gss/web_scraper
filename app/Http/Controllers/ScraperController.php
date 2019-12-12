@@ -43,8 +43,6 @@ class ScraperController extends Controller
 			$pattern_members = "/<div class='company-icon icon-group'><\/div>\n<div class='company-description'>\n(.*?)\n<\/div>/i";
 			$pattern_address = "/<div class='company-icon wt-icon wt-icon-location'><\/div>\n<div class='company-description'>\n(.*?)\n<\/div>/i";
 
-
-
 			preg_match_all($pattern_name, $response, $company_names);
 			preg_match_all($pattern_url, $response, $company_url);
 			preg_match_all($pattern_founded, $response, $company_founded);
