@@ -17,10 +17,11 @@ class ScraperController extends Controller
 
 	public function scraper(Request $request)
 	{
+		$request->session()->forget('company_infos');
 		$request->session()->forget('name');
 		$result = [];
 		$page = $request->page_first;
-
+		
 		for($page; $page <= $request->page_last; $page++){
 			$client = new Client();
 			$web_request = $client->get('https://en-jp.wantedly.com/projects?type=mixed&page='.$page);
@@ -60,6 +61,7 @@ class ScraperController extends Controller
         }
 
 		Session::put('name', 'page ' . $request->page_first . ' to '. $request->page_last);
+		Session::push('company_infos', $result);
 		return view('scrape', compact('result'))->with([
 
 		]);
