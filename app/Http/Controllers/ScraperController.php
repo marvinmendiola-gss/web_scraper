@@ -18,7 +18,7 @@ class ScraperController extends Controller
 	public function scraper(Request $request)
 	{
 		$request->session()->forget('company_infos');
-		$request->session()->forget('name');
+		// $request->session()->forget('name');
 		$result = [];
 		$page = $request->page_first;
 		
@@ -58,7 +58,7 @@ class ScraperController extends Controller
 			];
         }
 
-		Session::put('name', 'page ' . $request->page_first . ' to '. $request->page_last);
+		// Session::put('name', 'page ' . $request->page_first . ' to '. $request->page_last);
 		Session::push('company_infos', $result);
 		return view('scrape', compact('result'))->with([
 
@@ -68,6 +68,6 @@ class ScraperController extends Controller
 	public function export(Request $request){
 
 		$name = Session::get('name');
-		return Excel::download(new CompanyInfoExport(), time() . '_' . $name . '.' . $request->extension);
+		return Excel::download(new CompanyInfoExport(), 'Wantedly_' . $request->page_first . '-'. $request->page_last .'.' . $request->extension);
 	}
 }
